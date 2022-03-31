@@ -1,0 +1,20 @@
+% \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{mathtools} % for declaring abs
+\newcommand{\N}{\mathbb{N}} % Natural Numbers
+\newcommand{\PP}{\mathbb{P}} % Probability
+\newcommand{\E}{\mathbb{E}} % Expectation
+\newcommand{\V}{\mathbb{V}} % Variance
+\newcommand{\F}{\mathbb{F}} % Field
+\newcommand{\scriptP}{\mathcal{P}} % Points
+\newcommand{\scriptL}{\mathcal{L}} % Lines
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}} % Independence
+\newcommand{\floor}[1]{\lfloor #1 \rfloor} % Floor function
+\newcommand{\ceil}[1]{\lceil #1 \rceil} % Ceiling function
+\newcommand{\R}{\mathbb{R}} % real numbers
+\newcommand{\Z}{\mathbb{Z}} % integers
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % norm function
+\DeclarePairedDelimiter\abs{\lvert}{\rvert} % absolute value
+
+

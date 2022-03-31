@@ -1,0 +1,124 @@
+---
+author: Frank Kovacs
+title: "Document Title"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+course: '36-200: Reasoning with Data'
+teacher: 'Professor XYZ'
+output:
+  pdf_document:
+    highlight: tango
+    template: template_format.tex
+    includes:
+      in_header: math_commands.txt
+    latex_engine: xelatex
+    keep_tex: false
+geometry: margin=0.75in
+fontsize: 11pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  fig.pos = 'H',
+  fig.height=5, fig.width=7.5,
+  class.source="bg-warning"
+)
+knitr::opts_chunk$set(dev = 'pdf')
+
+
+## source: https://bookdown.org/yihui/rmarkdown-cookbook/chunk-styling.html
+## knitr::opts_chunk$set(fig.height=3, fig.width=3, fig.cap="3in by 3in Picture""
+## set seed
+
+## laod the data in
+
+options(kableExtra.latex.load_package = FALSE)
+library(kableExtra)
+library(magrittr)
+library(assertthat)
+library(pander)
+library(ggplot2)
+library(gridExtra)
+library(car)
+library(GGally)
+library(HH)
+library(glmnet)
+library(marginalmodelplots)
+library(arm)
+library(DHARMa)
+library(nlme)
+
+## kable(rad_vol) %>%
+##   kable_styling(bootstrap_options = "bordered",
+##                full_width = FALSE)
+
+my.table <- function(dat, cap = "") {
+  return(
+    kable(dat,
+      caption = cap) %>%
+  kable_styling(bootstrap_options = "bordered",
+                latex_options = "hold_position",
+                full_width = FALSE)
+  )
+}
+
+proj.theme <- function(font.size = 14) {
+  return( theme(
+    plot.caption = element_text(hjust = 0.5,
+                              size = font.size + 2,
+                              vjust = 0,
+                              family = "Times",
+                              face = "bold"),
+    plot.title = element_text(hjust = 0.5,
+                            size = font.size + 4,
+                            family = "Times"),
+    axis.title.y = element_text(size = font.size + 1,
+                             family = "Times"),
+    axis.title.x = element_text(vjust = 0,
+                              size = font.size + 1,
+                              family = "Times"),
+    plot.subtitle = element_text(size = font.size,
+                               family = "Times"),
+    axis.ticks = element_line(size = 1.75)
+  ))
+}
+
+## data_arr is of the form cars04$Name -> data_arr
+create_summary_table <- function(data_arr) {
+  summary_raw <- summary(data_arr)
+  row_names <- c(
+    names(summary_raw),
+    "SD"
+  )
+  row_values <- c(
+    as.vector(summary_raw),
+    sd(data_arr)
+  )
+  data_df <- t(
+      data.frame(
+        row_values,
+        row.names = row_names
+      )
+    )
+  rownames(data_df) <- c("")
+  data_df <- apply(
+    X = data_df,
+    MARGIN = c(1, 2),
+    FUN = function(z) {
+      return(
+        round(z, 2)
+      )
+    }
+  )
+  return(
+    data_df
+  )
+}
+
+set.seed(1356)
+```
+
